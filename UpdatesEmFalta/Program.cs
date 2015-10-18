@@ -63,12 +63,12 @@ namespace UpdatesEmFalta
                     UpdateDownloader downloader = uSession.CreateUpdateDownloader();
                     downloader.Updates = updatesToDownload;
                     downloader.Download();
-                    /*
+
                     //processamento de updates - Install
-                    UpdateInstaller updatesToInstall = uSession.CreateUpdateInstaller();
                     UpdateCollection updatesToInstall = new UpdateCollection();
+                    //UpdateInstaller updatesToInstall = uSession.CreateUpdateInstaller();
                     rebootMayBeRequired = false;
-                    foreach(IUpdate update in sResult.Updates)
+                    foreach (IUpdate update in sResult.Updates)
                     {
                         if (update.IsDownloaded==true)
                         {
@@ -79,10 +79,13 @@ namespace UpdatesEmFalta
                             }
                         }
                     }
-                    if (updatesToInstall.Updates.Count == 0) Console.Write("No updates were successfully downloaded.");
-                    //UpdateInstaller installer = 
-                    //installer.CreateUpdateInstaller();
-             */
+                    if (updatesToInstall.Count == 0) Console.Write("No updates were successfully downloaded.");
+                    if (rebootMayBeRequired == true) Console.Write("Reboot will be required.");
+                    //UpdateInstaller installer = uSession.CreateUpdateInstaller();
+                    IUpdateInstaller installer = uSession.CreateUpdateInstaller();
+                    installer.Updates = updatesToInstall;
+                    installer.Install();
+
                 }
             }
             catch (Exception ex)
